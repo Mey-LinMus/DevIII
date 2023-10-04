@@ -1,15 +1,17 @@
-const express = require("express");
+const express = require('express');
+const knex = require('knex');
+const knexfile = require('./knexfile'); // Import the Knex.js configuration
 
 const app = express();
-app.get("/", (request, response) => {
+const PORT = process.env.PORT || 3000;
 
-    response.send({message:"hello world"})
-});
+// Create a Knex.js instance
+const db = knex(knexfile.development);
 
-app.listen(3000, (err) => {
-  if (!err) {
-    console.log("running on port" + 3000);
-  } else {
-    console.error(err);
-  }
+app.use(express.json());
+
+// Define your API routes and handlers here
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
